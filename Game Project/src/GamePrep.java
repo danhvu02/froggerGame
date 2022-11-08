@@ -14,15 +14,15 @@ public class GamePrep extends JFrame implements KeyListener, ActionListener {
 	
 	//instances of our data classes (store position, etc here)
 	private Frog frog;
-	private Car cars1[];
-	private Log logs1[];
+	private Car cars1[], cars2[], cars3[];
+	private Log logs1[], logs2[], logs3[];
 	
 	//graphic elements
 	private Container content;
 	//private JLabel frogLabel, carLabel, logLabel, backgroundLabel ;
-	private JLabel frogLabel, carLabel[], logLabel[], backgroundLabel ;
+	private JLabel frogLabel, car1Label[], car2Label[],car3Label[],log1Label[], log2Label[], log3Label[], backgroundLabel ;
 	//private ImageIcon frogImage, carImage, logImage, backgroundImage;
-	private ImageIcon frogImage, carImage[], logImage[], backgroundImage;
+	private ImageIcon frogImage, car1Image[], car2Image[], car3Image[], log1Image[], log2Image[], log3Image[], backgroundImage;
 
 	//buttons
 	private JButton StartButton;
@@ -41,7 +41,7 @@ public class GamePrep extends JFrame implements KeyListener, ActionListener {
 		frog.setHeight(100);
 		frog.setImage("frog.png");
 
-		//set up 1 array of car
+		//set up array of car 1 (the bottom lane)
 		cars1= new Car[3];
 		for(int i=0;i<cars1.length;i++){
 			cars1[i]= new Car();
@@ -49,27 +49,77 @@ public class GamePrep extends JFrame implements KeyListener, ActionListener {
 			cars1[i].setY(400);
 			cars1[i].setWidth(100);
 			cars1[i].setHeight(100);
-			cars1[i].setVisible(true);
 			cars1[i].setMoving(false);
 			cars1[i].setImage("car.png");
 			cars1[i].setFrog(frog);
 		}
 		
-		//set up log
+		//set up array of car 2 (the mid lane)
+		cars2= new Car[4];
+		for(int i=0;i<cars2.length;i++){
+			cars2[i]= new Car();
+			cars2[i].setX(200*i);
+			cars2[i].setY(350);
+			cars2[i].setWidth(100);
+			cars2[i].setHeight(100);
+			cars2[i].setMoving(false);
+			cars2[i].setImage("car.png");
+			cars2[i].setFrog(frog);
+		}
+		
+		//set up array of car 3 (the top lane)
+		cars3= new Car[5];
+		for(int i=0;i<cars3.length;i++){
+			cars3[i]= new Car();
+			cars3[i].setX(200*i);
+			cars3[i].setY(300);
+			cars3[i].setWidth(100);
+			cars3[i].setHeight(100);
+			cars3[i].setMoving(false);
+			cars3[i].setImage("car.png");
+			cars3[i].setFrog(frog);
+		}
+		
+		//set up array of log 1  (the bottom lane of river)
 		logs1 = new Log[3];
 		for(int i=0;i<logs1.length;i++){
 			logs1[i]= new Log();
-			logs1[i].setX(100*i);
-			logs1[i].setY(100);
+			logs1[i].setX(200*i);
+			logs1[i].setY(200);
 			logs1[i].setWidth(100);
 			logs1[i].setHeight(100);
-			logs1[i].setVisible(true);
 			logs1[i].setMoving(false);
 			logs1[i].setImage("log.png");
 			logs1[i].setFrog(frog);
 			
 		}
 
+		//set up array of log 2 (the mid lane of river)
+		logs2 = new Log[4];
+		for(int i=0;i<logs2.length;i++){
+			logs2[i]= new Log();
+			logs2[i].setX(200*i);
+			logs2[i].setY(150);
+			logs2[i].setWidth(100);
+			logs2[i].setHeight(100);
+			logs2[i].setMoving(false);
+			logs2[i].setImage("log.png");
+			logs2[i].setFrog(frog);
+			
+		}
+		
+		//set up array of log 3 (the top lane of river)
+		logs3 = new Log[4];
+		for(int i=0;i<logs3.length;i++){
+			logs3[i]= new Log();
+			logs3[i].setX(200*i);
+			logs3[i].setY(100);
+			logs3[i].setWidth(100);
+			logs3[i].setHeight(100);
+			logs3[i].setMoving(false);
+			logs3[i].setImage("log.png");
+			logs3[i].setFrog(frog);
+		}
 		
 		//set up screen
 		setSize(GameProperties.SCREEN_WIDTH, GameProperties.SCREEN_HEIGHT);
@@ -86,31 +136,87 @@ public class GamePrep extends JFrame implements KeyListener, ActionListener {
 		for(int i=0;i<cars1.length;i++){
 			cars1[i].setFrogLabel(frogLabel);
 		}
-		for(int i=0;i<cars1.length;i++){
+		for(int i=0;i<cars2.length;i++){
+			cars2[i].setFrogLabel(frogLabel);
+		}
+		for(int i=0;i<cars3.length;i++){
+			cars3[i].setFrogLabel(frogLabel);
+		}
+		
+		for(int i=0;i<logs1.length;i++){
 			logs1[i].setFrogLabel(frogLabel);
 		}
+		for(int i=0;i<logs2.length;i++){
+			logs2[i].setFrogLabel(frogLabel);
+		}
+		for(int i=0;i<logs3.length;i++){
+			logs3[i].setFrogLabel(frogLabel);
+		}
 		
-		carLabel = new JLabel[3];
-		carImage = new ImageIcon[3];
+		car1Label = new JLabel[3];
+		car1Image = new ImageIcon[3];
 		for(int i=0;i<cars1.length;i++){
-			carLabel[i] = new JLabel();
-			carImage[i] = new ImageIcon(getClass().getResource(cars1[i].getImage()));
-			carLabel[i].setIcon(carImage[i]);
-			carLabel[i].setSize(cars1[i].getWidth(), cars1[i].getHeight());
-			carLabel[i].setLocation(cars1[i].getX(), cars1[i].getY());
-			cars1[i].setCarLabel(carLabel[i]);
+			car1Label[i] = new JLabel();
+			car1Image[i] = new ImageIcon(getClass().getResource(cars1[i].getImage()));
+			car1Label[i].setIcon(car1Image[i]);
+			car1Label[i].setSize(cars1[i].getWidth(), cars1[i].getHeight());
+			car1Label[i].setLocation(cars1[i].getX(), cars1[i].getY());
+			cars1[i].setCarLabel(car1Label[i]);
 		}
 
+		car2Label = new JLabel[4];
+		car2Image = new ImageIcon[4];
+		for(int i=0;i<cars2.length;i++){
+			car2Label[i] = new JLabel();
+			car2Image[i] = new ImageIcon(getClass().getResource(cars2[i].getImage()));
+			car2Label[i].setIcon(car2Image[i]);
+			car2Label[i].setSize(cars2[i].getWidth(), cars2[i].getHeight());
+			car2Label[i].setLocation(cars2[i].getX(), cars2[i].getY());
+			cars2[i].setCarLabel(car2Label[i]);
+		}
 		
-		logLabel = new JLabel[3];
-		logImage = new ImageIcon[3];
+		car3Label = new JLabel[5];
+		car3Image = new ImageIcon[5];
+		for(int i=0;i<cars3.length;i++){
+			car3Label[i] = new JLabel();
+			car3Image[i] = new ImageIcon(getClass().getResource(cars3[i].getImage()));
+			car3Label[i].setIcon(car3Image[i]);
+			car3Label[i].setSize(cars3[i].getWidth(), cars3[i].getHeight());
+			car3Label[i].setLocation(cars3[i].getX(), cars3[i].getY());
+			cars3[i].setCarLabel(car3Label[i]);
+		}
+		
+		log1Label = new JLabel[3];
+		log1Image = new ImageIcon[3];
 		for(int i=0;i<logs1.length;i++){
-			logLabel[i] = new JLabel();
-			logImage[i] = new ImageIcon(getClass().getResource(logs1[i].getImage()));
-			logLabel[i].setIcon(logImage[i]);
-			logLabel[i].setSize(logs1[i].getWidth(), logs1[i].getHeight());
-			logLabel[i].setLocation(logs1[i].getX(), logs1[i].getY());
-			logs1[i].setLogLabel(logLabel[i]);
+			log1Label[i] = new JLabel();
+			log1Image[i] = new ImageIcon(getClass().getResource(logs1[i].getImage()));
+			log1Label[i].setIcon(log1Image[i]);
+			log1Label[i].setSize(logs1[i].getWidth(), logs1[i].getHeight());
+			log1Label[i].setLocation(logs1[i].getX(), logs1[i].getY());
+			logs1[i].setLogLabel(log1Label[i]);
+		}
+
+		log2Label = new JLabel[4];
+		log2Image = new ImageIcon[4];
+		for(int i=0;i<logs2.length;i++){
+			log2Label[i] = new JLabel();
+			log2Image[i] = new ImageIcon(getClass().getResource(logs2[i].getImage()));
+			log2Label[i].setIcon(log2Image[i]);
+			log2Label[i].setSize(logs2[i].getWidth(), logs2[i].getHeight());
+			log2Label[i].setLocation(logs2[i].getX(), logs2[i].getY());
+			logs2[i].setLogLabel(log2Label[i]);
+		}
+
+		log3Label = new JLabel[4];
+		log3Image = new ImageIcon[4];
+		for(int i=0;i<logs3.length;i++){
+			log3Label[i] = new JLabel();
+			log3Image[i] = new ImageIcon(getClass().getResource(logs3[i].getImage()));
+			log3Label[i].setIcon(log3Image[i]);
+			log3Label[i].setSize(logs3[i].getWidth(), logs3[i].getHeight());
+			log3Label[i].setLocation(logs3[i].getX(), logs3[i].getY());
+			logs3[i].setLogLabel(log3Label[i]);
 		}
 
 		
@@ -120,12 +226,26 @@ public class GamePrep extends JFrame implements KeyListener, ActionListener {
 		StartButton.setLocation(GameProperties.SCREEN_WIDTH-100, 
 				                GameProperties.SCREEN_HEIGHT-200);
 		StartButton.setFocusable(false);
+		
 		for(int i=0;i<cars1.length;i++){
 			cars1[i].setStartButton(StartButton);
 		}
+		for(int i=0;i<cars2.length;i++){
+			cars2[i].setStartButton(StartButton);
+		}
+		for(int i=0;i<cars3.length;i++){
+			cars3[i].setStartButton(StartButton);
+		}
+		
 		
 		for(int i=0;i<logs1.length;i++){
 			logs1[i].setStartButton(StartButton);
+		}
+		for(int i=0;i<logs2.length;i++){
+			logs2[i].setStartButton(StartButton);
+		}
+		for(int i=0;i<logs3.length;i++){
+			logs3[i].setStartButton(StartButton);
 		}
 
 
@@ -135,10 +255,23 @@ public class GamePrep extends JFrame implements KeyListener, ActionListener {
 
 		content.add(frogLabel);
 		for(int i=0;i<cars1.length;i++){
-			content.add(carLabel[i]);
+			content.add(car1Label[i]);
 		}
+		for(int i=0;i<cars2.length;i++){
+			content.add(car2Label[i]);
+		}
+		for(int i=0;i<cars3.length;i++){
+			content.add(car3Label[i]);
+		}
+		
 		for(int i=0;i<logs1.length;i++){
-			content.add(logLabel[i]);
+			content.add(log1Label[i]);
+		}
+		for(int i=0;i<logs2.length;i++){
+			content.add(log2Label[i]);
+		}
+		for(int i=0;i<logs3.length;i++){
+			content.add(log3Label[i]);
 		}
 		
 		content.add(backgroundLabel);
@@ -220,12 +353,41 @@ public class GamePrep extends JFrame implements KeyListener, ActionListener {
 					cars1[i].startMoving();
 				}
 			}
+			for(int i=0;i<cars2.length;i++){
+				if (cars2[i].getMoving()) {
+					cars2[i].setMoving(false);
+				} else {
+					cars2[i].startMoving();
+				}
+			}
+			for(int i=0;i<cars3.length;i++){
+				if (cars3[i].getMoving()) {
+					cars3[i].setMoving(false);
+				} else {
+					cars3[i].startMoving();
+				}
+			}
+			
 			
 			for(int i=0;i<logs1.length;i++){
 				if (logs1[i].getMoving()) {
 					logs1[i].setMoving(false);
 				} else {
 					logs1[i].startMoving();
+				}
+			}
+			for(int i=0;i<logs2.length;i++){
+				if (logs2[i].getMoving()) {
+					logs2[i].setMoving(false);
+				} else {
+					logs2[i].startMoving();
+				}
+			}
+			for(int i=0;i<logs3.length;i++){
+				if (logs3[i].getMoving()) {
+					logs3[i].setMoving(false);
+				} else {
+					logs3[i].startMoving();
 				}
 			}
 

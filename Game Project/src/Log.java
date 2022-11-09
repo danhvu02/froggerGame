@@ -12,7 +12,7 @@ public class Log extends Object implements Runnable {
 	private JButton StartButton;
 	
 	public Log() {
-		super(0, 0, 100, 100, "log.png");
+		super(0, 0, 150, 60, "log.png");
 		this.visible = true;
 		this.moving = false;
 	}
@@ -128,10 +128,8 @@ public class Log extends Object implements Runnable {
 	private void detectCollision() {
 		if (r.intersects( frog.getRectangle() )) {
 			System.out.println("BOOM!");
-			this.moving = false;
-			this.FrogLabel.setIcon(
-					new ImageIcon( getClass().getResource("redFrog.png") )
-					);
+			this.moving = true;
+
 
 		}
 	}

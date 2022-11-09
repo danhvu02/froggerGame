@@ -34,49 +34,45 @@ public class GamePrep extends JFrame implements KeyListener, ActionListener {
 		backgroundLabel.setSize(GameProperties.SCREEN_WIDTH, GameProperties.SCREEN_HEIGHT);
 		
 		//set up frog
-		frog = new Frog();
-		frog.setX(250);
-		frog.setY(500);
-		frog.setWidth(100);
-		frog.setHeight(100);
-		frog.setImage("frog.png");
+		frog = new Frog(375, 550, 50, 50, "frog.png");
+
 
 		//set up array of car 1 (the bottom lane)
 		cars1= new Car[3];
 		for(int i=0;i<cars1.length;i++){
 			cars1[i]= new Car();
 			cars1[i].setX(200*i);
-			cars1[i].setY(400);
+			cars1[i].setY(450);
 			cars1[i].setWidth(100);
-			cars1[i].setHeight(100);
+			cars1[i].setHeight(50);
 			cars1[i].setMoving(false);
-			cars1[i].setImage("car.png");
+			cars1[i].setImage("car_right.png");
 			cars1[i].setFrog(frog);
 		}
 		
 		//set up array of car 2 (the mid lane)
-		cars2= new Car[4];
+		cars2= new Car[3];
 		for(int i=0;i<cars2.length;i++){
 			cars2[i]= new Car();
 			cars2[i].setX(200*i);
-			cars2[i].setY(350);
+			cars2[i].setY(385);
 			cars2[i].setWidth(100);
-			cars2[i].setHeight(100);
+			cars2[i].setHeight(50);
 			cars2[i].setMoving(false);
-			cars2[i].setImage("car.png");
+			cars2[i].setImage("car_right.png");
 			cars2[i].setFrog(frog);
 		}
 		
 		//set up array of car 3 (the top lane)
-		cars3= new Car[5];
+		cars3= new Car[3];
 		for(int i=0;i<cars3.length;i++){
 			cars3[i]= new Car();
 			cars3[i].setX(200*i);
-			cars3[i].setY(300);
+			cars3[i].setY(320);
 			cars3[i].setWidth(100);
-			cars3[i].setHeight(100);
+			cars3[i].setHeight(50);
 			cars3[i].setMoving(false);
-			cars3[i].setImage("car.png");
+			cars3[i].setImage("car_right.png");
 			cars3[i].setFrog(frog);
 		}
 		
@@ -85,9 +81,9 @@ public class GamePrep extends JFrame implements KeyListener, ActionListener {
 		for(int i=0;i<logs1.length;i++){
 			logs1[i]= new Log();
 			logs1[i].setX(200*i);
-			logs1[i].setY(200);
-			logs1[i].setWidth(100);
-			logs1[i].setHeight(100);
+			logs1[i].setY(190);
+			logs1[i].setWidth(150);
+			logs1[i].setHeight(60);
 			logs1[i].setMoving(false);
 			logs1[i].setImage("log.png");
 			logs1[i].setFrog(frog);
@@ -95,13 +91,13 @@ public class GamePrep extends JFrame implements KeyListener, ActionListener {
 		}
 
 		//set up array of log 2 (the mid lane of river)
-		logs2 = new Log[4];
+		logs2 = new Log[3];
 		for(int i=0;i<logs2.length;i++){
 			logs2[i]= new Log();
 			logs2[i].setX(200*i);
-			logs2[i].setY(150);
-			logs2[i].setWidth(100);
-			logs2[i].setHeight(100);
+			logs2[i].setY(130);
+			logs2[i].setWidth(150);
+			logs2[i].setHeight(60);
 			logs2[i].setMoving(false);
 			logs2[i].setImage("log.png");
 			logs2[i].setFrog(frog);
@@ -109,13 +105,13 @@ public class GamePrep extends JFrame implements KeyListener, ActionListener {
 		}
 		
 		//set up array of log 3 (the top lane of river)
-		logs3 = new Log[4];
+		logs3 = new Log[2];
 		for(int i=0;i<logs3.length;i++){
 			logs3[i]= new Log();
 			logs3[i].setX(200*i);
-			logs3[i].setY(100);
-			logs3[i].setWidth(100);
-			logs3[i].setHeight(100);
+			logs3[i].setY(70);
+			logs3[i].setWidth(150);
+			logs3[i].setHeight(60);
 			logs3[i].setMoving(false);
 			logs3[i].setImage("log.png");
 			logs3[i].setFrog(frog);
@@ -164,8 +160,8 @@ public class GamePrep extends JFrame implements KeyListener, ActionListener {
 			cars1[i].setCarLabel(car1Label[i]);
 		}
 
-		car2Label = new JLabel[4];
-		car2Image = new ImageIcon[4];
+		car2Label = new JLabel[3];
+		car2Image = new ImageIcon[3];
 		for(int i=0;i<cars2.length;i++){
 			car2Label[i] = new JLabel();
 			car2Image[i] = new ImageIcon(getClass().getResource(cars2[i].getImage()));
@@ -175,8 +171,8 @@ public class GamePrep extends JFrame implements KeyListener, ActionListener {
 			cars2[i].setCarLabel(car2Label[i]);
 		}
 		
-		car3Label = new JLabel[5];
-		car3Image = new ImageIcon[5];
+		car3Label = new JLabel[3];
+		car3Image = new ImageIcon[3];
 		for(int i=0;i<cars3.length;i++){
 			car3Label[i] = new JLabel();
 			car3Image[i] = new ImageIcon(getClass().getResource(cars3[i].getImage()));
@@ -197,8 +193,8 @@ public class GamePrep extends JFrame implements KeyListener, ActionListener {
 			logs1[i].setLogLabel(log1Label[i]);
 		}
 
-		log2Label = new JLabel[4];
-		log2Image = new ImageIcon[4];
+		log2Label = new JLabel[3];
+		log2Image = new ImageIcon[3];
 		for(int i=0;i<logs2.length;i++){
 			log2Label[i] = new JLabel();
 			log2Image[i] = new ImageIcon(getClass().getResource(logs2[i].getImage()));
@@ -208,8 +204,8 @@ public class GamePrep extends JFrame implements KeyListener, ActionListener {
 			logs2[i].setLogLabel(log2Label[i]);
 		}
 
-		log3Label = new JLabel[4];
-		log3Image = new ImageIcon[4];
+		log3Label = new JLabel[2];
+		log3Image = new ImageIcon[2];
 		for(int i=0;i<logs3.length;i++){
 			log3Label[i] = new JLabel();
 			log3Image[i] = new ImageIcon(getClass().getResource(logs3[i].getImage()));
@@ -396,4 +392,6 @@ public class GamePrep extends JFrame implements KeyListener, ActionListener {
 		
 		
 	}
+	
+	
 }

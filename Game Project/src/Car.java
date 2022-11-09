@@ -12,7 +12,7 @@ public class Car extends Object implements Runnable {
 	protected JButton StartButton;
 	
 	public Car() {
-		super(0, 0, 100, 100, "car.png");
+		super(0, 0, 100, 50, "car_right.png");
 		this.visible = true;
 		this.moving = false;
 	}
@@ -84,7 +84,7 @@ public class Car extends Object implements Runnable {
 				new ImageIcon( getClass().getResource("frog.png") )
 				);
 		this.CarLabel.setIcon(
-				new ImageIcon( getClass().getResource("car.png") )
+				new ImageIcon( getClass().getResource("car_right.png") )
 				);
 
 		while (this.moving) {
@@ -128,13 +128,11 @@ public class Car extends Object implements Runnable {
 	private void detectCollision() {
 		if (r.intersects( frog.getRectangle() )) {
 			System.out.println("BOOM!");
-			this.moving = false;
-			this.FrogLabel.setIcon(
-					new ImageIcon( getClass().getResource("redFrog.png") )
-					);
-			this.CarLabel.setIcon(
-					new ImageIcon( getClass().getResource("redCar.png") )
-					);
+			this.moving = true;
+			this.frog.setX(375);
+			this.frog.setY(550);
+			//this.FrogLabel.setIcon(new ImageIcon( getClass().getResource("redFrog.png") ));
+			//this.CarLabel.setIcon(new ImageIcon( getClass().getResource("redCar.png") ));
 		}
 	}
 

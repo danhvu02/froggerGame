@@ -2,7 +2,7 @@
 public class Frog extends Object{
 
 	public Frog() {
-		super(0,0,100,100,"frog.png");
+		super(375,550,50,50,"frog.png");
 
 		}
 

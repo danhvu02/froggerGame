@@ -3,7 +3,7 @@ import java.awt.Rectangle;
 public class Object {
 	protected int x, y; //upper left, top position
 	protected int height, width;
-	protected float speed;
+	protected int speed;
 	protected String image;
 	protected Rectangle r;
 	
@@ -38,10 +38,10 @@ public class Object {
 	public String getImage() {
 		return image;
 	}
-	public float getSpeed() {
+	public int getSpeed() {
 		return speed;
 	}
-	public void setSpeed(float speed) {
+	public void setSpeed(int speed) {
 		this.speed = speed;
 	}
 	public void setImage(String image) {
@@ -57,7 +57,7 @@ public class Object {
 		this.image = "";
 		this.r = new Rectangle(0,0,0,0);
 	}
-	public Object(int x, int y, int height, int width, float speed, String image) {
+	public Object(int x, int y, int height, int width, int speed, String image) {
 		super();
 		this.x = x;
 		this.y = y;

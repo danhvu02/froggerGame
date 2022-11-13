@@ -19,6 +19,7 @@ public class Log extends Object implements Runnable {
 	
 	public void setLogLabel(JLabel temp) {
 		this.LogLabel = temp;
+		
 	}
 	
 	public void setFrog(Frog temp) {
@@ -111,8 +112,7 @@ public class Log extends Object implements Runnable {
 			this.setX(currentX);
 			System.out.println("Log X, Y: " + this.x + "," + this.y);
 			
-			//check for collision
-			if ( this.visible ) this.detectCollision();
+			this.detectCollision();
 			
 			//update Character2Label
 			this.LogLabel.setLocation(this.x, this.y);
@@ -130,14 +130,29 @@ public class Log extends Object implements Runnable {
 		
 	}
 	
-	private void detectCollision() {
-		if (r.intersects( frog.getRectangle() )) {
+	public void detectCollision() {
+		if (!r.intersects( frog.getRectangle() ) && frog.getY() >= 60 && frog.getY() <= 250) {
+			/*
+			System.out.println("Game Over!");
+			this.moving = true;
+			frog.setX(375);
+			frog.setY(500);
+			frog.getX();
+			frog.getY();
+			this.FrogLabel.setLocation(frog.getX(), frog.getY());
+			*/
+		} else if (r.intersects( frog.getRectangle() )) {
 			System.out.println("On Log!");
 			this.moving = true;
-
-
+			frog.setSpeed(this.speed);
+			frog.setX(frog.getX()+ frog.getSpeed());
+			frog.getX();
+			this.FrogLabel.setLocation(frog.getX(), frog.getY());
+			
 		}
 	}
+	
+	
 
 
 }

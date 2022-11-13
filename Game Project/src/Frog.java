@@ -6,7 +6,7 @@ public class Frog extends Object{
 
 		}
 
-	public Frog(int x, int y, int height, int width, float speed, String image) {
+	public Frog(int x, int y, int height, int width, int speed, String image) {
 		super(x, y, height, width, speed, image);
 	}
 	

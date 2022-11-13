@@ -20,11 +20,11 @@ public class GamePrep extends JFrame implements KeyListener, ActionListener {
 	
 	//graphic elements
 	private Container content;
-	//private JLabel frogLabel, carLabel, logLabel, backgroundLabel ;
 	private JLabel frogLabel, car1Label[], car2Label[],car3Label[],log1Label[], log2Label[], log3Label[], backgroundLabel ;
-	//private ImageIcon frogImage, carImage, logImage, backgroundImage;
 	private ImageIcon frogImage, car1Image[], car2Image[], car3Image[], log1Image[], log2Image[], log3Image[], backgroundImage;
-
+	private JLabel score, winMessage;
+	
+	int gameScore = 0;
 	//buttons
 	private JButton StartButton;
 	
@@ -33,7 +33,7 @@ public class GamePrep extends JFrame implements KeyListener, ActionListener {
 		backgroundImage = new ImageIcon(this.getClass().getResource("/background.png"));
 		backgroundLabel = new JLabel(backgroundImage);
 		backgroundLabel.setSize(GameProperties.SCREEN_WIDTH, GameProperties.SCREEN_HEIGHT);
-		
+
 		//set up frog
 		frog = new Frog(375, 500, 50, 50, GameProperties.CHARACTER_STEP, "frog.png");
 
@@ -250,12 +250,24 @@ public class GamePrep extends JFrame implements KeyListener, ActionListener {
 		for(int i=0;i<logs3.length;i++){
 			logs3[i].setStartButton(StartButton);
 		}
-
-
+		
+		//add a score label
+		score = new JLabel("Score: ");
+		score.setSize(100, 40);
+		score.setLocation(GameProperties.SCREEN_WIDTH - 100, 0);
+		
+		//add a win label
+		winMessage = new JLabel("You Win ");
+		winMessage.setSize(100, 40);
+		winMessage.setLocation(0, 0);
+		winMessage.setVisible(false);
+		
 		//populate screen
 		content.add(StartButton);
 		StartButton.addActionListener(this);
 
+		content.add(score);
+		content.add(winMessage);
 		content.add(frogLabel);
 		for(int i=0;i<cars1.length;i++){
 			content.add(car1Label[i]);
@@ -283,7 +295,9 @@ public class GamePrep extends JFrame implements KeyListener, ActionListener {
 		content.setFocusable(true);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 	}
+
 
 	//main 
 	public static void main( String args []) {
@@ -291,16 +305,6 @@ public class GamePrep extends JFrame implements KeyListener, ActionListener {
 		myGame.setVisible(true);
 	}
 
-
-	public void isInsideLog(){
-		Log logarray[][]= new Log[][] {logs1,logs2,logs3};
-
-		for (int i = 0; i < logarray.length; i++) {
-
-			
-		}
-	}
-	
 	@Override
 	public void keyTyped(KeyEvent e) {}
 
@@ -358,6 +362,18 @@ public class GamePrep extends JFrame implements KeyListener, ActionListener {
 		
 		//update graphic
 		frogLabel.setLocation(frog.getX(), frog.getY());
+		
+		
+		if (frog.getY() <= 30) {
+			gameScore += 50;
+			winMessage.setVisible(true);
+			score.setText("Score: " + gameScore);
+			frog.setX(375);
+			frog.setY(500);
+			frog.getX();
+			frog.getY();
+			frogLabel.setLocation(frog.getX(), frog.getY());
+		}
 	}
 
 

@@ -12,7 +12,7 @@ public class Car extends Object implements Runnable {
 	protected JButton StartButton;
 	
 	public Car() {
-		super(0, 0, 100, 50, "car_right.png");
+		super(0, 0, 100, 50, GameProperties.CHARACTER_STEP, "car_right.png");
 		this.visible = true;
 		this.moving = false;
 	}
@@ -74,6 +74,14 @@ public class Car extends Object implements Runnable {
 		}
 	}
 
+	public String setCarType(){
+		if(this.speed>0){
+			return "car_right.png";
+		} else {
+			return "car_left.png";
+		}
+	}
+	
 	@Override
 	public void run() {
 		System.out.println("Car Thread started");
@@ -84,7 +92,7 @@ public class Car extends Object implements Runnable {
 				new ImageIcon( getClass().getResource("frog.png") )
 				);
 		this.CarLabel.setIcon(
-				new ImageIcon( getClass().getResource("car_right.png") )
+				new ImageIcon( getClass().getResource(setCarType()) )
 				);
 
 		while (this.moving) {
@@ -94,12 +102,18 @@ public class Car extends Object implements Runnable {
 			int currentX = this.x;
 			
 			//increase x
-			currentX += GameProperties.CHARACTER_STEP;
+			currentX += this.speed;
 			
 			//boundary check right-side
-			if (currentX >= GameProperties.SCREEN_WIDTH) {
+			if (this.speed > 0 && currentX >= GameProperties.SCREEN_WIDTH) {
 				currentX = -1 * this.width;
+			} 
+			//boundary check left-side
+			else if (this.speed < 0 && currentX < (-1 * this.width)) {
+				currentX = GameProperties.SCREEN_WIDTH;
 			}
+			
+
 			
 			//update x
 			//this.x = currentX;
@@ -127,14 +141,16 @@ public class Car extends Object implements Runnable {
 	
 	private void detectCollision() {
 		if (r.intersects( frog.getRectangle() )) {
-			System.out.println("BOOM!");
 			this.moving = true;
-			this.frog.setX(375);
-			this.frog.setY(550);
-			//this.FrogLabel.setIcon(new ImageIcon( getClass().getResource("redFrog.png") ));
-			//this.CarLabel.setIcon(new ImageIcon( getClass().getResource("redCar.png") ));
+			frog.setX(375);
+			frog.setY(500);
+			frog.getX();
+			frog.getY();
+			this.FrogLabel.setLocation(frog.getX(), frog.getY());
+
 		}
 	}
+	
 
 
 }

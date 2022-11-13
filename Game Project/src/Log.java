@@ -12,7 +12,7 @@ public class Log extends Object implements Runnable {
 	private JButton StartButton;
 	
 	public Log() {
-		super(0, 0, 150, 60, "log.png");
+		super(0, 0, 150, 60, GameProperties.CHARACTER_STEP, "log.png");
 		this.visible = true;
 		this.moving = false;
 	}
@@ -94,11 +94,16 @@ public class Log extends Object implements Runnable {
 			int currentX = this.x;
 			
 			//increase x
-			currentX += GameProperties.CHARACTER_STEP;
+			currentX += this.speed;
 			
 			//boundary check right-side
-			if (currentX >= GameProperties.SCREEN_WIDTH) {
+			if (this.speed > 0 && currentX >= GameProperties.SCREEN_WIDTH) {
 				currentX = -1 * this.width;
+			} 
+			
+			//boundary check left-side
+			else if (this.speed < 0 && currentX < (-1 * this.width)) {
+				currentX = GameProperties.SCREEN_WIDTH;
 			}
 			
 			//update x
@@ -127,7 +132,7 @@ public class Log extends Object implements Runnable {
 	
 	private void detectCollision() {
 		if (r.intersects( frog.getRectangle() )) {
-			System.out.println("BOOM!");
+			System.out.println("On Log!");
 			this.moving = true;
 
 

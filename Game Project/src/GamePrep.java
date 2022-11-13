@@ -16,6 +16,7 @@ public class GamePrep extends JFrame implements KeyListener, ActionListener {
 	private Frog frog;
 	private Car cars1[], cars2[], cars3[];
 	private Log logs1[], logs2[], logs3[];
+
 	
 	//graphic elements
 	private Container content;
@@ -34,17 +35,18 @@ public class GamePrep extends JFrame implements KeyListener, ActionListener {
 		backgroundLabel.setSize(GameProperties.SCREEN_WIDTH, GameProperties.SCREEN_HEIGHT);
 		
 		//set up frog
-		frog = new Frog(375, 550, 50, 50, "frog.png");
+		frog = new Frog(375, 500, 50, 50, GameProperties.CHARACTER_STEP, "frog.png");
 
 
 		//set up array of car 1 (the bottom lane)
 		cars1= new Car[3];
 		for(int i=0;i<cars1.length;i++){
 			cars1[i]= new Car();
-			cars1[i].setX(200*i);
+			cars1[i].setX(0 + 290*i);
 			cars1[i].setY(450);
 			cars1[i].setWidth(100);
 			cars1[i].setHeight(50);
+			cars1[i].setSpeed(30);
 			cars1[i].setMoving(false);
 			cars1[i].setImage("car_right.png");
 			cars1[i].setFrog(frog);
@@ -54,12 +56,13 @@ public class GamePrep extends JFrame implements KeyListener, ActionListener {
 		cars2= new Car[3];
 		for(int i=0;i<cars2.length;i++){
 			cars2[i]= new Car();
-			cars2[i].setX(200*i);
+			cars2[i].setX(0 + 270*i);
 			cars2[i].setY(385);
 			cars2[i].setWidth(100);
 			cars2[i].setHeight(50);
+			cars2[i].setSpeed(-25);
 			cars2[i].setMoving(false);
-			cars2[i].setImage("car_right.png");
+			cars2[i].setImage("car_left.png");
 			cars2[i].setFrog(frog);
 		}
 		
@@ -67,10 +70,11 @@ public class GamePrep extends JFrame implements KeyListener, ActionListener {
 		cars3= new Car[3];
 		for(int i=0;i<cars3.length;i++){
 			cars3[i]= new Car();
-			cars3[i].setX(200*i);
+			cars3[i].setX(0 + 250*i);
 			cars3[i].setY(320);
 			cars3[i].setWidth(100);
-			cars3[i].setHeight(50);
+			cars3[i].setHeight(40);
+			cars3[i].setSpeed(40);
 			cars3[i].setMoving(false);
 			cars3[i].setImage("car_right.png");
 			cars3[i].setFrog(frog);
@@ -80,10 +84,11 @@ public class GamePrep extends JFrame implements KeyListener, ActionListener {
 		logs1 = new Log[3];
 		for(int i=0;i<logs1.length;i++){
 			logs1[i]= new Log();
-			logs1[i].setX(200*i);
+			logs1[i].setX(0+i*300);
 			logs1[i].setY(190);
 			logs1[i].setWidth(150);
 			logs1[i].setHeight(60);
+			logs1[i].setSpeed(25);
 			logs1[i].setMoving(false);
 			logs1[i].setImage("log.png");
 			logs1[i].setFrog(frog);
@@ -94,10 +99,11 @@ public class GamePrep extends JFrame implements KeyListener, ActionListener {
 		logs2 = new Log[3];
 		for(int i=0;i<logs2.length;i++){
 			logs2[i]= new Log();
-			logs2[i].setX(200*i);
-			logs2[i].setY(130);
+			logs2[i].setX(0+i*350);
+			logs2[i].setY(125);
 			logs2[i].setWidth(150);
 			logs2[i].setHeight(60);
+			logs2[i].setSpeed(-35);
 			logs2[i].setMoving(false);
 			logs2[i].setImage("log.png");
 			logs2[i].setFrog(frog);
@@ -108,10 +114,11 @@ public class GamePrep extends JFrame implements KeyListener, ActionListener {
 		logs3 = new Log[2];
 		for(int i=0;i<logs3.length;i++){
 			logs3[i]= new Log();
-			logs3[i].setX(200*i);
-			logs3[i].setY(70);
+			logs3[i].setX(0+i*330);
+			logs3[i].setY(60);
 			logs3[i].setWidth(150);
 			logs3[i].setHeight(60);
+			logs3[i].setSpeed(35);
 			logs3[i].setMoving(false);
 			logs3[i].setImage("log.png");
 			logs3[i].setFrog(frog);
@@ -278,13 +285,22 @@ public class GamePrep extends JFrame implements KeyListener, ActionListener {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
-	
+	//main 
 	public static void main( String args []) {
 		GamePrep myGame = new GamePrep();
 		myGame.setVisible(true);
 	}
 
 
+	public void isInsideLog(){
+		Log logarray[][]= new Log[][] {logs1,logs2,logs3};
+
+		for (int i = 0; i < logarray.length; i++) {
+
+			
+		}
+	}
+	
 	@Override
 	public void keyTyped(KeyEvent e) {}
 
@@ -296,15 +312,26 @@ public class GamePrep extends JFrame implements KeyListener, ActionListener {
 		
 		//modify position
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
-			y -= GameProperties.CHARACTER_STEP;
+
+			//modify frog step to match with lanes
+			if (y <= 450) {
+				y -= GameProperties.CHARACTER_STEP + 14;
+			} else {
+				y -= GameProperties.CHARACTER_STEP;
+			}
 			
 			if (y + frog.getHeight() <= 0) {
 				y = GameProperties.SCREEN_HEIGHT;
 			}
 			
 		} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-			y += GameProperties.CHARACTER_STEP;
-			
+			//modify frog step to match with lanes
+			if (y >= 450) {
+				y += GameProperties.CHARACTER_STEP;
+			} else {
+				y += GameProperties.CHARACTER_STEP + 14;
+			}
+							
 			if (y >= GameProperties.SCREEN_HEIGHT) {
 				y = -1 * frog.getHeight();
 			}

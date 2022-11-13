@@ -38,6 +38,12 @@ public class Object {
 	public String getImage() {
 		return image;
 	}
+	public float getSpeed() {
+		return speed;
+	}
+	public void setSpeed(float speed) {
+		this.speed = speed;
+	}
 	public void setImage(String image) {
 		this.image = image;
 	}
@@ -47,15 +53,17 @@ public class Object {
 		this.y = -1;
 		this.width = -1;
 		this.height = -1;
+		this.speed = GameProperties.CHARACTER_STEP;
 		this.image = "";
 		this.r = new Rectangle(0,0,0,0);
 	}
-	public Object(int x, int y, int height, int width, String image) {
+	public Object(int x, int y, int height, int width, float speed, String image) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.height = height;
 		this.width = width;
+		this.speed = speed;
 		this.image = image;
 		this.r = new Rectangle(x,y,width,height);
 	}
@@ -63,9 +71,11 @@ public class Object {
 	public void Display () {
 		System.out.println("x,y: " + this.x + "," + this.y);
 		System.out.println("width,height: " + this.width + "," + height);
+		System.out.println("speed: " + this.speed);
 		System.out.println("image: " + this.image);
 	}
 
+	
 	
 	public void updateRectanglePosition() {
 		this.r.x = this.x;
@@ -75,6 +85,7 @@ public class Object {
 		this.r.width = this.width;
 		this.r.height = this.height;
 	}
+	
 	public Rectangle getRectangle() {
 		return this.r;
 	}
